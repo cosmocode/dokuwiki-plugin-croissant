@@ -1,0 +1,7 @@
+base   croissant
+author Adrian Lang
+email  lang@cosmocode.de
+date   2011-09-29
+name   croissant plugin
+desc   Display hierarchical breadcrumbs (youarehere) with optional custom page titles
+url    https://dokuwiki.org/plugin:croissant
