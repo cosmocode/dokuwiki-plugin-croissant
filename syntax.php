@@ -42,31 +42,33 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
     }
 
     /**
-     * Greatly cleaned up copy&paste from tpl_youarehere without wiki start page
-     *  and with custom titles
+     * Greatly cleaned up copy&paste from tpl_youarehere with custom titles
      */
     function tpl($sep=' &raquo; ') {
         global $ID;
         global $lang;
 
         $parts = explode(':', $ID);
-        $count = count($parts);
 
         echo '<span class="bchead">'.$lang['youarehere'].': </span>';
 
         // always print the startpage
-        tpl_pagelink(':'.$conf['start']);
+        array_unshift($parts, '');
 
         // print intermediate namespace links
         $part = $page = '';
-        for($i=0; $i<$count; $i++){
+        $count = count($parts);
+        for($i = 0; $i < $count; ++$i) {
             $old_page = $page;
-            $part .= $parts[$i].':';
+            $part .= $parts[$i];
+            if ($i < $count - 1) {
+                $part .= ':';
+            }
             $page = $part;
             resolve_pageid('', $page);
             if ($page !== $old_page) {
                 echo $sep;
-                tpl_pagelink($page, p_get_metadata($page, 'plugin_croissant_bctitle'));
+                tpl_pagelink(':' . $page, p_get_metadata($page, 'plugin_croissant_bctitle'));
             }
         }
 
