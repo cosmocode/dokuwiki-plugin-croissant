@@ -65,7 +65,7 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
                 $part .= ':';
             }
             $page = $part;
-            resolve_pageid('', $page);
+            resolve_pageid('', $page, $exists);
             if ($page !== $old_page) {
                 echo $sep;
                 tpl_pagelink(':' . $page, p_get_metadata($page, 'plugin_croissant_bctitle'));
