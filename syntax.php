@@ -30,11 +30,11 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('~~bc:.*?~~',$mode,'plugin_croissant');
     }
 
-    function handle($match, $state, $pos, &$handler){
+    function handle($match, $state, $pos, Doku_Handler $handler){
         return trim(substr($match, 5, -2));
     }
 
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if($mode === 'metadata') {
             $renderer->meta['plugin_croissant_bctitle'] = $data;
         }
