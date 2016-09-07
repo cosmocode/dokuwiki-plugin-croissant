@@ -61,6 +61,7 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
 
         $parts = explode(':', $ID);
 
+        echo '<span class="plugin_croissant">';
         echo '<span class="bchead">'.$lang['youarehere'].': </span>';
 
         // always print the startpage
@@ -82,6 +83,7 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
                 tpl_pagelink(':' . $page, p_get_metadata($page, 'plugin_croissant_bctitle'));
             }
         }
+        echo '</span>';
 
         return true;
     }
