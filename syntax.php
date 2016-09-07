@@ -28,14 +28,21 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
 
     function connectTo($mode) {
         $this->Lexer->addSpecialPattern('~~bc:.*?~~',$mode,'plugin_croissant');
+        $this->Lexer->addSpecialPattern('~~nobc~~',$mode,'plugin_croissant');
     }
 
     function handle($match, $state, $pos, Doku_Handler $handler){
+        if ($match == '~~nobc~~') {
+            return null;
+        }
         return trim(substr($match, 5, -2));
     }
 
     function render($mode, Doku_Renderer $renderer, $data) {
         if($mode === 'metadata') {
+            if (blank($data)) {
+                $renderer->meta['plugin_croissant_nobc'] = true;
+            }
             $renderer->meta['plugin_croissant_bctitle'] = $data;
         }
         return true;
@@ -47,6 +54,10 @@ class syntax_plugin_croissant extends DokuWiki_Syntax_Plugin {
     function tpl($sep=' &raquo; ') {
         global $ID;
         global $lang;
+
+        if (p_get_metadata($ID, 'plugin_croissant_nobc') === true) {
+            return;
+        }
 
         $parts = explode(':', $ID);
 
